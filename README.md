@@ -1,10 +1,10 @@
-# multiThreadScheduler
+# Multi-Thread-Scheduler and Event-based-Scheduler
 
 ## Objective
 
 This project requires me to implments a multi-threads scheduler to gain hands-on experience creating, throttling, and evaluating a scheduler.For this project I read in a data file “FloridaCounties.csv” which contains about 75,000 records. And treat each record as a task to be scheduled. 
 
-There are two types of scheduler I implemented. One is thread-per-request scheduler another is a scheduler based on event and event listener.
+There are two types of scheduler I implemented. One is thread-per-request scheduler that uses parallel techs. Another is a scheduler based on event and event listener.
 
 I also analyze the latency and throughput of various schedulers.
 
@@ -61,5 +61,46 @@ Create an object from the record. Remember that there are multiple ways to creat
 
 1. If eq_site_license >= 800,000 simulate registering the house with a remote service.
 2. In lieu of registration details – wait 10 seconds.
+
+## Scheduler
+
+### Scheduler # 1: Simple thread-per-request scheduler. multi thread.
+
+Requirements:
+
+1. As each job arrives the scheduler (using one thread per request) will ensure all tasks are completed for each job.
+2. Tasks are completed in different orders depending on the point_granularity (PG) field as follows:
+
+PG=1: T1, T2, T3, T4, T5
+
+PG=2: T1, T3, T4, T5, T2
+
+PG=3: T1, T5, T4, T3, T2 
+
+PG=4: T1, T4, T2, T5, T3 
+
+PG=5: T1, T2, T5, T3, T4 
+
+PG=7: T1, T3, T2, T5, T4 (There are no jobs for PG=6)
+
+#### Explain my program
+
+Scheduler uses Executor thread pool. (Here I use fixed thread pool because I know how many threads in the pool is proper for this project)
+
+The Starter has the main function which is the entrance of whole program. Client and Scheduler work in their own thread,they are Asynchronous.Everytime the scheduler receive a request from cilent, it will create a record (Record class represents data structure from the csv file) and then send the record to a Job thread that is created by thread pool and run it. One Job thread is responsible for one request. The job thread will create Tasks object and call its function. Here, Job thread will call tasks function in different orders based on the field PG of record.
+
+### Scheduler #2: Event Based scheduler using design patterns
+
+Starter Class has main function, it is the entrance of the program. 
+Client and Scheduler work in their own threads, they are Asynchronous. 
+Client read csv file and send the rows one by one. 
+Scheduler receive request from cilent and then create a string that contains one row from csv file. 
+Scheduler then uses event source to generate a event with flag "NewEvent" and the string received from the client.
+event listener notices the event and catch the event. Listener will decide what is the next state for this event (run task 1 or 2 or ...). Listener call cooresponding state function to finish task. 
+After the task is finished, it will generate new event with flag that represents next state.
+Listener catch the new event again and then do same work. 
+
+
+
 
 
