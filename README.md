@@ -92,13 +92,22 @@ The Starter has the main function which is the entrance of whole program. Client
 ### Scheduler #2: Event Based scheduler using design patterns
 
 Starter Class has main function, it is the entrance of the program. 
+
 Client and Scheduler work in their own threads, they are Asynchronous. 
+
 Client read csv file and send the rows one by one. 
+
 Scheduler receive request from cilent and then create a string that contains one row from csv file. 
+
 Scheduler then uses event source to generate a event with flag "NewEvent" and the string received from the client.
+
 event listener notices the event and catch the event. Listener will decide what is the next state for this event (run task 1 or 2 or ...). Listener call cooresponding state function to finish task. 
+
 After the task is finished, it will generate new event with flag that represents next state.
+
 Listener catch the new event again and then do same work. 
+
+
 
 
 
