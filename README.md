@@ -23,5 +23,5 @@ The webserver processes data for house sales in Florida counties. As this is a s
 
 Before discussing the scheduler, I will describe each of the tasks to be completed for EACH job. The tasks are dependent upon the data in the comma delimited housing string. The field names for attributes in this string are as follows:
 
-
+![GitHub](https://avatars2.githubusercontent.com/u/3265208?v=3&s=100 "GitHub,Social Coding")
 
