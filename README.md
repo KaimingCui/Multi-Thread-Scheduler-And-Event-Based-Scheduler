@@ -4,7 +4,7 @@
 
 This project requires me to implments a multi-threads scheduler to gain hands-on experience creating, throttling, and evaluating a scheduler.For this project I read in a data file “FloridaCounties.csv” which contains about 75,000 records. And treat each record as a task to be scheduled. 
 
-There are two types of scheduler I implemented. One is thread-per-request scheduler that uses parallel techs. Another is a scheduler based on event and event listener.
+There are two types of scheduler I implemented. One is thread-per-request scheduler that uses Concurrency (Thread pool and threads). Another is a scheduler based on event and event listener (generate event by event source, listenser catch event and handle event).
 
 I also analyze the latency and throughput of various schedulers.
 
